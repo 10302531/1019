@@ -1,0 +1,12 @@
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /maven-web/role/roleList.action HTTP/1.1" 200 11708 http-bio-8080-exec-1 4612
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /maven-web/css/main.css;jsessionid=9E71B3AA0B52ED696E0FA52D68C75E65 HTTP/1.1" 200 3693 http-bio-8080-exec-3 5
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /pic/e3e0e36a748b4b25ba5dd2f854f7d5b1.jpg HTTP/1.1" 404 - http-bio-8080-exec-4 0
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /maven-web/lib/font-awesome/css/font-awesome.css;jsessionid=9E71B3AA0B52ED696E0FA52D68C75E65 HTTP/1.1" 200 34344 http-bio-8080-exec-2 44
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /pic/a24ba3ea23564915a5726186ca670324.jpg HTTP/1.1" 404 - http-bio-8080-exec-5 0
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /pic/604591803ed5458a8d3f4c1d2b5b0175.jpg HTTP/1.1" 404 - http-bio-8080-exec-7 0
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /pic/7d9889582eb54ebf8d496d6ea974e6ca.jpg HTTP/1.1" 404 - http-bio-8080-exec-6 0
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /pic/e496ad2942ec4cc89564308af9e7ec0a.jpg HTTP/1.1" 404 - http-bio-8080-exec-9 0
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /pic/954137f58f4341a2aca1af76b964ca09.jpg HTTP/1.1" 404 - http-bio-8080-exec-8 0
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /pic/83494ffa02ef4eccb39da4e13ea75526.jpg HTTP/1.1" 404 - http-bio-8080-exec-8 0
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /pic/6ae17f5b99f54e889137a2394a3fe8d3.jpg HTTP/1.1" 404 - http-bio-8080-exec-8 0
+0:0:0:0:0:0:0:1 - - [18/Aug/2017:15:16:54 +0800] "GET /pic/ HTTP/1.1" 404 - http-bio-8080-exec-9 0

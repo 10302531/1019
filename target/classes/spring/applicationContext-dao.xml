@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+
+<context:component-scan base-package="com.zhiyou100.ssm"></context:component-scan>
+<context:property-placeholder location="classpath:db.properties"/>
+<bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	<property name="driverClass" value="${jdbc.driverClass}"></property>
+	<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+	<property name="user" value="${jdbc.user}"></property>
+	<property name="password" value="${jdbc.password}"></property>
+</bean>
+
+<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref="dataSource"></property>
+</bean>
+
+<tx:advice transaction-manager="transactionManager" id="txAdv">
+	<tx:attributes>
+		<tx:method name="add*" isolation="READ_UNCOMMITTED" propagation="REQUIRED" read-only="false"/>
+		<tx:method name="insert*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+		<tx:method name="delete*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+		<tx:method name="remove*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+		<tx:method name="modify*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+		<tx:method name="update*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+		<tx:method name="find*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="true"/>
+		<tx:method name="get*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="true"/>	
+		<tx:method name="transfer" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>
+	</tx:attributes>
+</tx:advice>
+
+<aop:config>
+	<aop:pointcut expression="execution(* com.zhiyou100.ssm.service.impl.*ServiceImpl.*(..))" id="pcAdv"/>
+	<aop:advisor advice-ref="txAdv" pointcut-ref="pcAdv"/>
+</aop:config>
+
+
+<!-- 
+	配置factory,依赖于连接池和mybatis的核心配置文件
+
+ -->
+<bean name="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<property name="configLocation" value="classpath:/mybatis/sqlMapConfig.xml"></property>
+</bean>
+<!--  
+	如果项目中有多个mapper接口,需要我们去配置多个,相对麻烦,会自动去找
+	xml文件
+	相当于
+	<mappers>
+		<mapper class="com.zhiyou100.sm.mapper.UserMapper"/>
+	</mappers>
+-->
+<!-- <bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<property name="sqlSessionFactory" ref="factory"></property>
+	<property name="mapperInterface" value="com.zhiyou100.sm.mapper.UserMapper"></property>
+</bean> -->
+
+<!--		
+	整合包中有一个类,MapperScannerConfigurer,可以给这个类指定一个路径,它会扫描这个路径下的所有mapper文件,
+	扫描的原理和mybatis中的<mappers><package>原理相同,所以我们在mybatis中就不用再去扫描了
+	这个类会自动从容器中找factory,所以不需要配置factory
+  -->
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<property name="basePackage" value="com.zhiyou100.ssm.mapper"></property>
+</bean>
+</beans>

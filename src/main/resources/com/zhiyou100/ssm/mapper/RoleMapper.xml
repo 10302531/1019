@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyou100.ssm.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyou100.ssm.model.Role" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="r_name" property="rName" jdbcType="VARCHAR" />
+    <result column="r_desc" property="rDesc" jdbcType="VARCHAR" />
+    <result column="r_updatetime" property="rUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="r_pic" property="rPic" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    r_id, r_name, r_desc, r_updatetime, r_pic
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhiyou100.ssm.model.RoleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_role
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_role
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhiyou100.ssm.model.RoleExample" >
+    delete from t_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhiyou100.ssm.model.Role" >
+    insert into t_role (r_id, r_name, r_desc, 
+      r_updatetime, r_pic)
+    values (#{rId,jdbcType=INTEGER}, #{rName,jdbcType=VARCHAR}, #{rDesc,jdbcType=VARCHAR}, 
+      #{rUpdatetime,jdbcType=TIMESTAMP}, #{rPic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyou100.ssm.model.Role" >
+    insert into t_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="rName != null" >
+        r_name,
+      </if>
+      <if test="rDesc != null" >
+        r_desc,
+      </if>
+      <if test="rUpdatetime != null" >
+        r_updatetime,
+      </if>
+      <if test="rPic != null" >
+        r_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="rName != null" >
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rDesc != null" >
+        #{rDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rUpdatetime != null" >
+        #{rUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rPic != null" >
+        #{rPic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhiyou100.ssm.model.RoleExample" resultType="java.lang.Integer" >
+    select count(*) from t_role
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_role
+    <set >
+      <if test="record.rId != null" >
+        r_id = #{record.rId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rName != null" >
+        r_name = #{record.rName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rDesc != null" >
+        r_desc = #{record.rDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rUpdatetime != null" >
+        r_updatetime = #{record.rUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rPic != null" >
+        r_pic = #{record.rPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_role
+    set r_id = #{record.rId,jdbcType=INTEGER},
+      r_name = #{record.rName,jdbcType=VARCHAR},
+      r_desc = #{record.rDesc,jdbcType=VARCHAR},
+      r_updatetime = #{record.rUpdatetime,jdbcType=TIMESTAMP},
+      r_pic = #{record.rPic,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyou100.ssm.model.Role" >
+    update t_role
+    <set >
+      <if test="rName != null" >
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rDesc != null" >
+        r_desc = #{rDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rUpdatetime != null" >
+        r_updatetime = #{rUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rPic != null" >
+        r_pic = #{rPic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyou100.ssm.model.Role" >
+    update t_role
+    set r_name = #{rName,jdbcType=VARCHAR},
+      r_desc = #{rDesc,jdbcType=VARCHAR},
+      r_updatetime = #{rUpdatetime,jdbcType=TIMESTAMP},
+      r_pic = #{rPic,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+<select id="findAllRoleCount" parameterType="RoleVO" resultType="Integer">
+select count(*) from t_role where ${ziduan} like '%' #{sousuo} '%'
+</select>
+<select id="findAllRole" parameterType="RoleVO" resultMap="BaseResultMap">
+select * from t_role where ${ziduan} like '%' #{sousuo} '%' limit #{page},10		
+</select>
+</mapper>
